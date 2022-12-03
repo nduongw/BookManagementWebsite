@@ -62,6 +62,57 @@ class Customer {
         return $result;
     }
 
+    public function get_user() {
+        $query = "SELECT * FROM `customers` WHERE username =:username AND password=:password";
+        try {
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':username', $this->username);
+            $stmt->bindParam(':password', $this->password);
+            $stmt->execute();
+        } catch (PDOException $e) {
+            echo "Error". $e->getMessage();
+        }
+        
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $result = $stmt->fetchAll();
+        
+        extract($result);
+        $this->id = $id;
+        $this->username = $username;
+        $this->password = $password;
+        $this->name = $name;
+        $this->avatar = $avatar;
+        $this->birthday = $birthday;
+        $this->phone = $phone;
+        $this->address = $address;
+        $this->email = $email;
+        $this->status = $status;
+        $this->money_spent = $money_spent;
+
+        return $result;
+    }
+
+    public function sign_in($username, $password, $phone, $address, $email) {
+        $query = "INSERT INTO `customers` SET username=:username, password=:password, phone=:phone, address=:address, email=:email";
+
+        try {
+            $stmt = $this->conn->prepare($query);
+            // $stmt->bindParam(':id', $this->id);
+            $stmt->bindParam(':username', $username);
+            $stmt->bindParam(':password', $password);
+            $stmt->bindParam(':phone', $phone);
+            $stmt->bindParam(':address', $address);
+            $stmt->bindParam(':email', $email);
+            
+            $stmt->execute();
+        } catch (PDOException $e) {
+            echo "Error". $e->getMessage();
+            return false;
+        }
+
+        return true;
+    }
+
     public function create() {
         $query = "INSERT INTO `customers` SET username=:username, password=:password, last_name=:last_name, avatar=:avatar, birthday=:birthday, phone=:phone, address=:address, email=:email";
 
