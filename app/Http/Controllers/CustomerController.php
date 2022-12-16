@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 
 class CustomerController extends Controller
 {
@@ -121,5 +121,68 @@ class CustomerController extends Controller
         $customer->delete();
 
         return redirect('/customer');
+    }
+
+    public function favorite($id)
+    {
+
+        // $data = Customer::leftJoin('favorites', 'customers.id', '=', 'favorites.customer_id')
+        //     ->leftJoin('books', 'favorites.book_id', '=', 'books.id')
+        //     ->select('first_name', 'last_name', 'username', 'tittle')
+        //     ->where('customers.id', '=', $id)
+        //     ->get();
+
+        $data = DB::table('customers')
+            ->leftjoin('favorites', 'customers.id', '=', 'favorites.customer_id')
+            ->leftJoin('books', 'favorites.book_id', '=', 'books.id')
+            ->select('first_name', 'last_name', 'username', 'tittle')
+            ->where('customers.id', '=', $id)
+            ->get();
+
+
+        if ($data->count() > 0) {
+
+            $customer = array();
+            $customer['name'] = $data[0]->first_name . ' ' . $data[0]->last_name;
+            $customer['username'] = $data[0]->username;
+
+            $books = array();
+            foreach ($data as $item) {
+                $books[] = $item->tittle;
+            }
+
+            return response([
+                'data' => [
+                    'customer' => $customer,
+                    'books' => $books
+                ],
+                'message' => 'Query success'
+            ]);
+        }
+
+        return response([
+            'data' => null,
+            'message' => "Data not found"
+        ]);
+    }
+
+    public function updatebyapi(Request $request, $id)
+    {
+        $customer = Customer::find($id);
+
+        if (!$customer)
+            return response([
+                'data' => null,
+                'message' => 'Data not found'
+            ]);
+
+        foreach ($request->all() as $key => $value)
+            $customer->$key = $value;
+
+
+        return response([
+            'data' => $customer,
+            'message' => 'Update success'
+        ]);
     }
 }

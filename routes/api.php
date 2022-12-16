@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CustomerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -13,7 +14,11 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::get('/customer/{id}', [CustomerController::class, 'favorite']);
+Route::patch('/customer/{id}/updatebyapi', [CustomerController::class, 'updatebyapi']);
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::patch('/customer/{id}/updatebyapi', function (Request $request, $id) {
+//     $customer = Customer::find($id);
+//     $customer->update($request->all());
+//     return response()->json($customer, 200);
+// });
