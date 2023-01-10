@@ -42,7 +42,8 @@ class GenresController extends Controller
      */
     public function store(Request $request)
     {
-        $genres = Genres::where('name', 'LIKE', $request->query('name'))->get();
+        $genres = Genres::where('name', '=', $request->query('name'))->get();
+        echo $genres;
         if (count($genres) != 0) {
             return response()->json(['Genres has been existed', 400]);
         } else {

@@ -12,15 +12,18 @@ class Books extends Model
     protected $table = "books";
     protected $fillable = [
         "tittle",
-        "image",
+        // "image",
         "price",
-        "discount",
-        "import_price",
+        // "discount",
+        // "import_price",
         "quantity",
         "content",
+        "categoryid"
         // "publication_date"
     ];
 
     const CREATED_AT = 'created_date';
     const UPDATED_AT = 'last_updated';
+
+    public $timestamps = false;
 }

@@ -28,11 +28,12 @@ class CartsController extends Controller
     public function create(Request $request)
     {
         $cart_item = Carts::create($request->all());
-        if ($cart_item != null) {
-            return response()->json(['Add to cart successful', 200]);
-        } else {
-            return response()->json(['Add to cart failed', 400]);
-        }
+        // echo $cart_item;
+        // if ($cart_item != null) {
+        //     return response()->json(['Add to cart successful', 200]);
+        // } else {
+        //     return response()->json(['Add to cart failed', 400]);
+        // }
     }
 
     /**

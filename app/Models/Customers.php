@@ -20,11 +20,12 @@ class Customers extends Model
         "address",
         "email",
         "money_spent",
-    ];
-
-    protected $hidden = [
         'password'
     ];
+
+    // protected $hidden = [
+    //     'password'
+    // ];
 
     public $timestamps = false;
 }

@@ -62,20 +62,27 @@ class CustomersController extends Controller
     }
 
     public function login(Request $request) {
-        $customer = Customers::where('phone', '=', $request->phone)->first();
-
-        echo Hash::check($customer['password'], $request->password);
-        if (Hash::check($request->password, $customer['password'])) {
-            return response()->json($customer, 200);
-        } else {
-            return response()->json(['Login failed', 400]);
+        $customer = Customers::where([['phone', '=', $request->phone], ['password', '=', $request->password]])->first();
+        if ($customer == null) {
+            return response()->json(['Account does not exist', 400]);
         }
 
+        return response()->json($customer, 200);
+
+        // echo Hash::check($customer['password'], $request->password);
+        // if (Hash::check($request->password, $customer['password'])) {
+        //     return response()->json($customer, 200);
+        // } else {
+        //     return response()->json(['Login failed', 400]);
+        // }
+
     }
+    
 
     public function register(Request $request) {
         $customer = Customers::where('phone', '=', $request->phone)->get();
-        if ($customer) {
+        if (count($customer) > 0) {
+            // echo $customer;
             return response()->json(['User has existed', 400]);
         }
 
@@ -85,7 +92,7 @@ class CustomersController extends Controller
             'email' => $request->email,
             'phone' => $request->phone,
             'address' => $request->address,
-            'password' => Hash::make($request->password),
+            'password' => $request->password,
             "money_spent" => 0
         ]);
 
