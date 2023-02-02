@@ -61,7 +61,8 @@ class CustomersController extends Controller
         }
     }
 
-    public function login(Request $request) {
+    public function login(Request $request)
+    {
         $customer = Customers::where([['phone', '=', $request->phone], ['password', '=', $request->password]])->first();
         if ($customer == null) {
             return response()->json(['Account does not exist', 400]);
@@ -77,9 +78,10 @@ class CustomersController extends Controller
         // }
 
     }
-    
 
-    public function register(Request $request) {
+
+    public function register(Request $request)
+    {
         $customer = Customers::where('phone', '=', $request->phone)->get();
         if (count($customer) > 0) {
             // echo $customer;
@@ -101,7 +103,6 @@ class CustomersController extends Controller
         } else {
             return \response()->json(['Register failed', 400]);
         }
-        
     }
 
     /**
@@ -131,7 +132,6 @@ class CustomersController extends Controller
             $customer->update($request->all());
             return response()->json(["Updated successful", 200]);
         }
-
     }
 
     /**
@@ -145,21 +145,22 @@ class CustomersController extends Controller
         //
     }
 
-    public function most_spending_customers() {
+    public function most_spending_customers()
+    {
         $customers = Customers::orderBy('money_spent', 'desc')->limit(5)->get();
         return response()->json($customers, 200);
     }
 
-    public function most_order_customers() {
+    public function most_order_customers()
+    {
         // $orders = Orders::select(['customer_id', 'COUNT(customer_id)'])->groupBy('customer_id');
 
         // return response()->json($orders, 200);
         $orders = DB::table('orders')
-                    ->selectRaw('customer_id, COUNT(customer_id) AS total_orders')
-                    ->groupBy('customer_id')
-                    ->orderBy('total_orders', 'desc')
-                    ->get();
+            ->selectRaw('customer_id, COUNT(customer_id) AS total_orders')
+            ->groupBy('customer_id')
+            ->orderBy('total_orders', 'desc')
+            ->get();
         return response()->json($orders, 200);
-
     }
 }

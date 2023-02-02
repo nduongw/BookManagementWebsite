@@ -12,7 +12,7 @@ class Books extends Model
     protected $table = "books";
     protected $fillable = [
         "tittle",
-        // "image",
+        "image",
         "price",
         // "discount",
         // "import_price",

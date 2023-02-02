@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Carts;
 
 use App\Http\Controllers\Controller;
+use App\Models\Books;
 use App\Models\Carts;
 use Illuminate\Http\Request;
 
@@ -63,6 +64,22 @@ class CartsController extends Controller
         }
     }
 
+    public function abc($id)
+    {
+        echo $id;
+    }
+
+    public function delete_cart($id)
+    {
+        $cart_item = Carts::where('customer_id', '=', $id)->delete();
+
+        if ($cart_item != null) {
+            return response()->json(['Deleted successful', 200]);
+        } else {
+            return response()->json(['Delete failed', 400]);
+        }
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -102,7 +119,7 @@ class CartsController extends Controller
     public function destroy($id, $book_id)
     {
         $cart_item = Carts::where([['book_id', '=', $book_id], ['customer_id', '=', $id]])->delete();
-        
+
         if ($cart_item != null) {
             return response()->json(['Deleted successful', 200]);
         } else {

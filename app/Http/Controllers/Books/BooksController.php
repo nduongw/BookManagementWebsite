@@ -80,7 +80,6 @@ class BooksController extends Controller
             $book->update(['quantity' => $request->quantity]);
             return response()->json(['Updated successful', 200]);
         }
-
     }
 
     /**
@@ -98,7 +97,7 @@ class BooksController extends Controller
         } else {
             // var_dump($request->all());
             // echo array($request->all());
-            if($book->update($request->all()) == true) {
+            if ($book->update($request->all()) == true) {
                 return response()->json(['Updated successful', 200]);
             } else {
                 return response()->json(['Updated failed', 400]);
@@ -124,25 +123,25 @@ class BooksController extends Controller
         }
     }
 
-    public function search($search_string) {
-        $books = Books::where('tittle', 'LIKE', '%'. $search_string. '%')->get();
-        if(count($books)){
-         return Response()->json($books, 200);
+    public function search($search_string)
+    {
+        $books = Books::where('tittle', 'LIKE', '%' . $search_string . '%')->get();
+        if (count($books)) {
+            return Response()->json($books, 200);
+        } else {
+            return response()->json(["Not found", 404]);
         }
-        else
-        {
-        return response()->json(["Not found", 404]);
-      }
     }
 
-    public function best_sell_book() {
+    public function best_sell_book()
+    {
         // Return the book which has the most quantity
         $orders = DB::table('orders_details')
-                    ->selectRaw('book_id, COUNT(book_id) AS total_sell')
-                    ->groupBy('book_id')
-                    ->orderBy('total_sell', 'desc')
-                    ->get();
-        return response()->json($orders, 200);
+            ->selectRaw('book_id, COUNT(book_id) AS total_sell')
+            ->groupBy('book_id')
+            ->orderBy('total_sell', 'desc')
+            ->get();
 
+        return response()->json($orders, 200);
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Books\BooksController;
 use App\Http\Controllers\Books\BooksGenresController;
 use App\Http\Controllers\Books\BooksPublishersController;
 use App\Http\Controllers\Carts\CartsController;
+use App\Http\Controllers\Comments\CommentsController;
 use App\Http\Controllers\Customers\CustomersController;
 use App\Http\Controllers\Favorites\FavoritesController;
 use App\Http\Controllers\Genres\GenresController;
@@ -58,22 +59,25 @@ Route::delete('favorites/{id}/{book_id}', [FavoritesController::class, 'destroy'
 Route::post('favorites/create', [FavoritesController::class, 'create']);
 
 #Cart API
-Route::get('carts/index', [CartsController::class, 'index']);
+Route::get('carts/inullndex', [CartsController::class, 'index']);
 Route::get('carts/show/{id}', [CartsController::class, 'show']);
 Route::delete('carts/{id}/{book_id}', [CartsController::class, 'destroy']);
 Route::post('carts/create', [CartsController::class, 'create']);
-Route::put('carts/{id}',[CartsController::class, 'update']);
+Route::put('carts/{id}', [CartsController::class, 'update']);
+Route::post('carts/delete/{id}', [CartsController::class, 'delete_cart']);
 
 # Order API
 Route::get('orders/index', [OrdersController::class, 'index']);
 Route::get('orders/show/{id}', [OrdersController::class, 'show']);
 Route::post('orders/create', [OrdersController::class, 'create']);
-Route::put('orders/{id}',[OrdersController::class, 'update']);
+Route::put('orders/{id}', [OrdersController::class, 'update']);
 
 # Other API
 Route::get('authors/index', [AuthorsController::class, 'index']);
 Route::get('genres/index', [GenresController::class, 'index']);
 Route::get('publishers/index', [PublishersController::class, 'index']);
+Route::get('comments/{id}', [CommentsController::class, 'show']);
+Route::post('comments/create', [CommentsController::class, 'create']);
 
 # -----------------------Admin API part-----------------------
 
