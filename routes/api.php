@@ -4,6 +4,7 @@ use App\Http\Controllers\Books\BooksController;
 use App\Http\Controllers\Carts\CartsController;
 use App\Http\Controllers\Customers\CustomersController;
 use App\Http\Controllers\Favorites\FavoritesController;
+use App\Http\Controllers\Orders\OrdersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -48,5 +49,11 @@ Route::get('carts/show/{id}', [CartsController::class, 'show']);
 Route::delete('carts/{id}/{book_id}', [CartsController::class, 'destroy']);
 Route::post('carts/create', [CartsController::class, 'create']);
 Route::put('carts/{id}',[CartsController::class, 'update']);
+
+# Order API
+Route::get('orders/index', [OrdersController::class, 'index']);
+Route::get('orders/show/{id}', [OrdersController::class, 'show']);
+Route::post('orders/create', [OrdersController::class, 'create']);
+Route::put('orders/{id}',[OrdersController::class, 'update']);
 
 # -----------------------Admin API part-----------------------
