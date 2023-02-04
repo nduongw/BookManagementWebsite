@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Books\BooksController;
 use App\Http\Controllers\Customers\CustomersController;
+use App\Http\Controllers\Favorites\FavoritesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -31,3 +32,9 @@ Route::post('books/create', [BooksController::class, 'create']);
 # User information API
 Route::get('users/show/{id}', [CustomersController::class, 'show']);
 Route::patch('users/{id}', [CustomersController::class, 'update']);
+
+#Favorite API
+Route::get('favorites/index', [FavoritesController::class, 'index']);
+Route::get('favorites/show/{id}', [FavoritesController::class, 'show']);
+Route::delete('favorites/{id}/{book_id}', [FavoritesController::class, 'destroy']);
+Route::post('favorites/create', [FavoritesController::class, 'create']);
