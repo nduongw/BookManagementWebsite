@@ -53,7 +53,15 @@ class FavoritesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
+    public function show($id)
+    {
+        $favorite = Favorites::where('customer_id', '=', $id)->get();
+        if ($favorite == null) {
+            return response()->json(['Can not get customer favorite', 400]);
+        } else {
+            return response()->json($favorite, 200);
+        }
+    }
 
     /**
      * Show the form for editing the specified resource.
