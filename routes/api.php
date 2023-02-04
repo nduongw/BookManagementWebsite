@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Books\BooksController;
+use App\Http\Controllers\Carts\CartsController;
 use App\Http\Controllers\Customers\CustomersController;
 use App\Http\Controllers\Favorites\FavoritesController;
 use Illuminate\Http\Request;
@@ -21,6 +22,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+# -----------------------User API part-----------------------
+
 #Book API
 Route::get('books/index', [BooksController::class, 'index']);
 Route::get('books/show/{id}', [BooksController::class, 'show']);
@@ -38,3 +41,12 @@ Route::get('favorites/index', [FavoritesController::class, 'index']);
 Route::get('favorites/show/{id}', [FavoritesController::class, 'show']);
 Route::delete('favorites/{id}/{book_id}', [FavoritesController::class, 'destroy']);
 Route::post('favorites/create', [FavoritesController::class, 'create']);
+
+#Cart API
+Route::get('carts/index', [CartsController::class, 'index']);
+Route::get('carts/show/{id}', [CartsController::class, 'show']);
+Route::delete('carts/{id}/{book_id}', [CartsController::class, 'destroy']);
+Route::post('carts/create', [CartsController::class, 'create']);
+Route::put('carts/{id}',[CartsController::class, 'update']);
+
+# -----------------------Admin API part-----------------------
