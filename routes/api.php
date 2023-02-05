@@ -34,6 +34,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 #Book API
 Route::get('books/index', [BooksController::class, 'index']);
 Route::get('books/show/{id}', [BooksController::class, 'show']);
+Route::get('books/search/{search_string}', [BooksController::class, 'search']);
 Route::delete('books/{id}', [BooksController::class, 'destroy']);
 Route::patch('books/{id}', [BooksController::class, 'edit']);
 Route::put('books/{id}', [BooksController::class, 'update']);

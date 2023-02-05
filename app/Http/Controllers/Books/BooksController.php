@@ -121,4 +121,15 @@ class BooksController extends Controller
             return response()->json(['Delete failed!', 400]);
         }
     }
+
+    public function search($search_string) {
+        $books = Books::where('tittle', 'LIKE', '%'. $search_string. '%')->get();
+        if(count($books)){
+         return Response()->json($books, 200);
+        }
+        else
+        {
+        return response()->json(["Not found", 404]);
+      }
+    }
 }
