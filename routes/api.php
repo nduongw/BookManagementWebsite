@@ -1,10 +1,16 @@
 <?php
 
+use App\Http\Controllers\Authors\AuthorsController;
+use App\Http\Controllers\Authors\BooksAuthorsController;
 use App\Http\Controllers\Books\BooksController;
+use App\Http\Controllers\Books\BooksGenresController;
+use App\Http\Controllers\Books\BooksPublishersController;
 use App\Http\Controllers\Carts\CartsController;
 use App\Http\Controllers\Customers\CustomersController;
 use App\Http\Controllers\Favorites\FavoritesController;
+use App\Http\Controllers\Genres\GenresController;
 use App\Http\Controllers\Orders\OrdersController;
+use App\Http\Controllers\Publishers\PublishersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,6 +38,9 @@ Route::delete('books/{id}', [BooksController::class, 'destroy']);
 Route::patch('books/{id}', [BooksController::class, 'edit']);
 Route::put('books/{id}', [BooksController::class, 'update']);
 Route::post('books/create', [BooksController::class, 'create']);
+Route::get('books/get-books-by-authors/{id}', [BooksAuthorsController::class, 'get_book_by_author']);
+Route::get('books/get-books-by-genres/{id}', [BooksGenresController::class, 'get_book_by_genres']);
+Route::get('books/get-books-by-publishers/{id}', [BooksPublishersController::class, 'get_book_by_publisher']);
 
 # User information API
 Route::get('users/show/{id}', [CustomersController::class, 'show']);
@@ -55,5 +64,10 @@ Route::get('orders/index', [OrdersController::class, 'index']);
 Route::get('orders/show/{id}', [OrdersController::class, 'show']);
 Route::post('orders/create', [OrdersController::class, 'create']);
 Route::put('orders/{id}',[OrdersController::class, 'update']);
+
+# Other API
+Route::get('authors/index', [AuthorsController::class, 'index']);
+Route::get('genres/index', [GenresController::class, 'index']);
+Route::get('publishers/index', [PublishersController::class, 'index']);
 
 # -----------------------Admin API part-----------------------
