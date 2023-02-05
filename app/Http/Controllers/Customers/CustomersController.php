@@ -50,7 +50,28 @@ class CustomersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function show($id)
+    {
+        $customer = Customers::find($id);
 
+        if ($customer == null) {
+            return response()->json(['Can not get customer information', 400]);
+        } else {
+            return response()->json($customer, 200);
+        }
+    }
+
+    public function login(Request $request) {
+        $customer = Customers::where('phone', '=', $request->phone)->first();
+
+        echo Hash::check($customer['password'], $request->password);
+        if (Hash::check($request->password, $customer['password'])) {
+            return response()->json($customer, 200);
+        } else {
+            return response()->json(['Login failed', 400]);
+        }
+
+    }
 
     public function register(Request $request) {
         $customer = Customers::where('phone', '=', $request->phone)->get();
