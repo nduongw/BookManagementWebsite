@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Authors;
 use App\Http\Controllers\Controller;
 use App\Models\Authors;
 use App\Models\Books;
+use App\Models\BooksAuthors;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Throwable;
 
 class AuthorsController extends Controller
 {
@@ -39,7 +42,17 @@ class AuthorsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $author = Authors::where('name', 'LIKE', $request->query('name'))->get();
+        if (count($author) != 0) {
+            return response()->json(['Author has been existed', 400]);
+        } else {
+            $author = Authors::create($request->all());
+            if ($author) {
+                return response()->json(['Created new author', 200]);
+            } else {
+                return response()->json(['Can not create new author', 400]);
+            }
+        }
     }
 
     /**
@@ -92,6 +105,25 @@ class AuthorsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            DB::beginTransaction();
+        
+            $books_id = BooksAuthors::where('author_id', '=', $id)
+                        ->get('book_id');
+
+            echo $books_id;
+            
+            Books::where('id', 'IN', $books_id)->delete();
+            BooksAuthors::where('author_id', '=', $id)->delete();
+            Authors::where('id', '=', $id)->delete();
+            
+            DB::commit();
+
+            return response()->json(['Remove successful', 200]);
+        
+        } catch (Throwable $e) {
+            DB::rollback();
+            return response()->json(['Remove failed', 400]);
+        }
     }
 }

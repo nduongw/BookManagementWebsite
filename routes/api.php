@@ -73,10 +73,20 @@ Route::get('genres/index', [GenresController::class, 'index']);
 Route::get('publishers/index', [PublishersController::class, 'index']);
 
 # -----------------------Admin API part-----------------------
+
+#Statistics API
 Route::get('users/spent', [CustomersController::class, 'most_spending_customers']);
 Route::get('users/most-order', [CustomersController::class, 'most_order_customers']);
-
 Route::get('books/best-seller', [BooksController::class, 'best_sell_book']);
 
+#Publisher API
 Route::post('publishers/create', [PublishersController::class, 'store']);
 Route::delete('publishers/{id}', [PublishersController::class, 'destroy']);
+
+#Genres API
+Route::post('genres/create', [GenresController::class, 'store']);
+Route::delete('genres/{id}', [GenresController::class, 'destroy']);
+
+#Author API
+Route::post('authors/create', [AuthorsController::class, 'create']);
+Route::delete('authors/{id}', [AuthorsController::class, 'destroy']);
