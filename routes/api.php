@@ -75,4 +75,8 @@ Route::get('publishers/index', [PublishersController::class, 'index']);
 # -----------------------Admin API part-----------------------
 Route::get('users/spent', [CustomersController::class, 'most_spending_customers']);
 Route::get('users/most-order', [CustomersController::class, 'most_order_customers']);
+
 Route::get('books/best-seller', [BooksController::class, 'best_sell_book']);
+
+Route::post('publishers/create', [PublishersController::class, 'store']);
+Route::delete('publishers/{id}', [PublishersController::class, 'destroy']);
