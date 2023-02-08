@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Books;
 
 use App\Http\Controllers\Controller;
 use App\Models\Books;
+use App\Models\OrdersDetails;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BooksController extends Controller
 {
@@ -131,5 +133,15 @@ class BooksController extends Controller
         {
         return response()->json(["Not found", 404]);
       }
+    }
+
+    public function best_sell_book() {
+        $orders = DB::table('orders_details')
+                    ->selectRaw('book_id, COUNT(book_id) AS total_sell')
+                    ->groupBy('book_id')
+                    ->orderBy('total_sell', 'desc')
+                    ->get();
+        return response()->json($orders, 200);
+
     }
 }

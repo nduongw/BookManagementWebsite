@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Customers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Customers;
+use App\Models\Orders;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CustomersController extends Controller
 {
@@ -104,8 +106,16 @@ class CustomersController extends Controller
         return response()->json($customers, 200);
     }
 
-    // public function most_order_customers() {
-        
-    //     $customers = Customers::
-    // }
+    public function most_order_customers() {
+        // $orders = Orders::select(['customer_id', 'COUNT(customer_id)'])->groupBy('customer_id');
+
+        // return response()->json($orders, 200);
+        $orders = DB::table('orders')
+                    ->selectRaw('customer_id, COUNT(customer_id) AS total_orders')
+                    ->groupBy('customer_id')
+                    ->orderBy('total_orders', 'desc')
+                    ->get();
+        return response()->json($orders, 200);
+
+    }
 }
