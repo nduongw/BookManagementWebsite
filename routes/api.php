@@ -31,6 +31,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 # -----------------------User API part-----------------------
 
+Route::get('customers/index', [CustomersController::class, 'index']);
+
 #Book API
 Route::get('books/index', [BooksController::class, 'index']);
 Route::get('books/show/{id}', [BooksController::class, 'show']);
@@ -46,6 +48,7 @@ Route::get('books/get-books-by-publishers/{id}', [BooksPublishersController::cla
 # User information API
 Route::get('users/show/{id}', [CustomersController::class, 'show']);
 Route::patch('users/{id}', [CustomersController::class, 'update']);
+Route::get('users/spent', [CustomersController::class, 'most_spending_customers']);
 
 #Favorite API
 Route::get('favorites/index', [FavoritesController::class, 'index']);

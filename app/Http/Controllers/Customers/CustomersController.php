@@ -15,7 +15,9 @@ class CustomersController extends Controller
      */
     public function index()
     {
-        //
+        $customers = Customers::all();
+
+        return response()->json($customers, 200);
     }
 
     /**
@@ -96,4 +98,14 @@ class CustomersController extends Controller
     {
         //
     }
+
+    public function most_spending_customers() {
+        $customers = Customers::orderBy('money_spent', 'desc')->limit(5)->get();
+        return response()->json($customers, 200);
+    }
+
+    // public function most_order_customers() {
+        
+    //     $customers = Customers::
+    // }
 }
