@@ -31,7 +31,5 @@ class BooksPublishersController extends Controller
         } else {
             return response()->json(['Can not find publisher by book', 400]);
         }
-
-        
     }
 }
