@@ -86,6 +86,9 @@ Route::get('books/best-seller', [BooksController::class, 'best_sell_book']);
 Route::post('publishers/create', [PublishersController::class, 'store']);
 Route::delete('publishers/{id}', [PublishersController::class, 'destroy']);
 
+#Genres API
+Route::post('genres/create', [GenresController::class, 'store']);
+Route::delete('genres/{id}', [GenresController::class, 'destroy']);
 
 #Author API
 Route::post('authors/create', [AuthorsController::class, 'create']);
