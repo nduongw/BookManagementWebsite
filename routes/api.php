@@ -48,6 +48,8 @@ Route::get('books/get-publisher-by-book/{id}', [BooksPublishersController::class
 # User information API
 Route::get('users/show/{id}', [CustomersController::class, 'show']);
 Route::patch('users/{id}', [CustomersController::class, 'update']);
+Route::post('users/register', [CustomersController::class, 'register']);
+Route::post('users/login', [CustomersController::class, 'login']);
 
 #Favorite API
 Route::get('favorites/index', [FavoritesController::class, 'index']);
