@@ -43,6 +43,7 @@ Route::post('books/create', [BooksController::class, 'create']);
 Route::get('books/get-books-by-authors/{id}', [BooksAuthorsController::class, 'get_book_by_author']);
 Route::get('books/get-books-by-genres/{id}', [BooksGenresController::class, 'get_book_by_genres']);
 Route::get('books/get-books-by-publishers/{id}', [BooksPublishersController::class, 'get_book_by_publisher']);
+Route::get('books/get-publisher-by-book/{id}', [BooksPublishersController::class, 'get_publisher_by_book']);
 
 # User information API
 Route::get('users/show/{id}', [CustomersController::class, 'show']);

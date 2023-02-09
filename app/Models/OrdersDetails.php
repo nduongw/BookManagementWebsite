@@ -14,7 +14,9 @@ class OrdersDetails extends Model
         "order_id",
         "book_id",
         "quantity",
-        "price"
+        "price",
+        "discount",
+        "import_price"
     ];
 
     public $timestamps = false;
