@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 class BooksPublishersController extends Controller
 {
     public function get_book_by_publisher($id) {
+        // return books by publisher
         $books = BooksPublishers::where('publisher_id', '=', $id)->all();
 
         if ($books != null) {
@@ -20,6 +21,7 @@ class BooksPublishersController extends Controller
     }
 
     public function get_publisher_by_book($id) {
+        // return publisher by book
         $publisher = BooksPublishers::where('book_id', '=', $id)->get('publisher_id');
         if (count($publisher) != 0) {
             $publisher_name = Publishers::where('id', '=', $publisher[0]['publisher_id'])->get('name');

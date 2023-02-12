@@ -136,6 +136,7 @@ class BooksController extends Controller
     }
 
     public function best_sell_book() {
+        // Return the book which has the most quantity
         $orders = DB::table('orders_details')
                     ->selectRaw('book_id, COUNT(book_id) AS total_sell')
                     ->groupBy('book_id')
